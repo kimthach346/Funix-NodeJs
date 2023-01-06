@@ -6,11 +6,9 @@ const server = http.createServer((req, res) => {
     // Set a header to redirect
     res.setHeader("Content-Type", "text/html");
     //
-    res.write("<html>");
     res.write(
-      '<body><h1>Welcome!</h1><form action="/create-user" method="POST"><input type="text" name="username"><button type="submit">Send</button></form></body>'
+      '<html><body><h1>Welcome!</h1><form action="/create-user" method="POST"><input type="text" name="username"><button type="submit">Send</button></form></body></html>'
     );
-    res.write("</html>");
     return res.end();
   }
   if (url === "/users") {
@@ -22,8 +20,8 @@ const server = http.createServer((req, res) => {
   }
   if (url === "/create-user" && method === "POST") {
     const data = [];
-    req.on("data", (chunk) => {
-      data.push(chunk);
+    req.on("data", (user) => {
+      data.push(user);
     });
     return req.on("end", () => {
       const parsedBody = Buffer.concat(data).toString();
